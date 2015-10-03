@@ -6,6 +6,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
 var concat = require('gulp-concat');
 var mocha = require('gulp-mocha');
+var env = require('gulp-env');
 var cover = require('gulp-coverage');
 
 var paths = {
@@ -20,6 +21,15 @@ gulp.task('clean', function (endCallback) {
     endCallback();
 });
 
+gulp.task('set-run-env', function (endCallback) {
+    env({
+        vars: {
+            LOG4JS_CONFIG: 'log4js-config.json'
+        }
+    })
+    endCallback();
+});
+
 gulp.task('scripts', ['clean'], function () {
     // Minify and copy all JavaScript (except vendor scripts) 
     // with sourcemaps all the way down 
@@ -31,7 +41,7 @@ gulp.task('scripts', ['clean'], function () {
         .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('test', function () {
+gulp.task('test', ['set-run-env'], function () {
     return gulp.src(paths.tests, {
             read: false
         }).pipe(cover.instrument({
