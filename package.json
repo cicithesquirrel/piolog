@@ -1,16 +1,17 @@
 {
     "name": "piolog",
     "version": "1.0.0",
-    "description": "",
+    "description": "Pioneer log parser",
     "main": "index.js",
     "scripts": {
         "test": "node scripts/test/testsuite.js"
     },
     "author": "Cyril Chéné",
-    "license": "GNU GPL",
+    "license": "GPL",
     "dependencies": {
         "commander": "2.0.0",
-        "log4js": "0.6.27"
+        "log4js": "0.6.27",
+        "js-beautify": "1.5.10"
     },
     "devDependencies": {
         "nodeunit": "0.9.1"
