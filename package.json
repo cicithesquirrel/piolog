@@ -1,0 +1,18 @@
+{
+    "name": "piolog",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "node scripts/test/testsuite.js"
+    },
+    "author": "Cyril Chéné",
+    "license": "GNU GPL",
+    "dependencies": {
+        "commander": "2.0.0",
+        "log4js": "0.6.27"
+    },
+    "devDependencies": {
+        "nodeunit": "0.9.1"
+    }
+}
