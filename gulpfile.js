@@ -10,12 +10,13 @@ var cover = require('gulp-coverage');
 
 var paths = {
     scripts: ['src/js/*.js', '!src/js/main.js'],
-    build: 'piolog.min.js'
+    build: 'piolog.min.js',
+    tests: ['test/**/*.js']
 };
 
 gulp.task('clean', function (endCallback) {
     // You can use multiple globbing patterns as you would with `gulp.src` 
-    del(['build', '.coverdata', 'coverage', 'reports']);
+    del(['build', '.coverdata', 'coverage', 'reports', 'debug']);
     endCallback();
 });
 
@@ -31,10 +32,10 @@ gulp.task('scripts', ['clean'], function () {
 });
 
 gulp.task('test', function () {
-    return gulp.src(paths.scripts, {
+    return gulp.src(paths.tests, {
             read: false
         }).pipe(cover.instrument({
-            pattern: ['test/**/*.js'],
+            pattern: paths.scripts,
             debugDirectory: 'debug'
         })).pipe(mocha())
         .pipe(cover.gather())

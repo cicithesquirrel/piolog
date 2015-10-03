@@ -7,3 +7,4 @@ pio2.log
 /.coverrun
 /coverage/
 /.coverdata/
+/debug/
