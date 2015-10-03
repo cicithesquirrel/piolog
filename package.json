@@ -16,6 +16,7 @@
         "js-beautify": "~1.5.10"
     },
     "devDependencies": {
-        "unit.js": "~2.0.0"
+        "unit.js": "~2.0.0",
+        "gulp": "~3.9.0"
     }
 }
