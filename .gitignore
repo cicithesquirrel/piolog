@@ -1,5 +1,9 @@
 pio.json
 pio.log
 pio2.log
-build
-node_modules
+/build/
+/node_modules/
+/reports/
+/.coverrun
+/coverage/
+/.coverdata/
