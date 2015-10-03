@@ -1,8 +1,8 @@
 "use strict";
 
 var assert = require('assert');
-var model = require('../../model');
-var matchers = require('../../matchers');
+var model = require('../../src/js/model');
+var matchers = require('../../src/js/matchers');
 
 exports.testPlayerName = function (test) {
 

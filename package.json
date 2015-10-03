@@ -2,18 +2,19 @@
     "name": "piolog",
     "version": "1.0.0",
     "description": "Pioneer log parser",
-    "main": "index.js",
+    "main": "src/js/index.js",
     "scripts": {
-        "test": "node scripts/test/testsuite.js"
+        "main": "node src/js/index.js",
+        "test": "node test/js/testsuite.js"
     },
     "author": "Cyril Chéné",
     "license": "GPL",
     "dependencies": {
-        "commander": "2.0.0",
-        "log4js": "0.6.27",
-        "js-beautify": "1.5.10"
+        "commander": "~2.0.0",
+        "log4js": "~0.6.27",
+        "js-beautify": "~1.5.10"
     },
     "devDependencies": {
-        "nodeunit": "0.9.1"
+        "nodeunit": "~0.9.1"
     }
 }

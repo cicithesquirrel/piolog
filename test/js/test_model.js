@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert');
-var model = require('../../model');
+var model = require('../../src/js/model');
 
 exports.testCloneWithSubobjects = function (test) {
 

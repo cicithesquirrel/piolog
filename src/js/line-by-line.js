@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-exports.readLineByLine = function (fileName, onReadLine, onEndOfFile) {
+exports.read = function (fileName, onReadLine, onEndOfFile) {
     var input = fs.createReadStream(fileName),
         remaining = '';
 

@@ -7,7 +7,7 @@ var del = require('del');
 var concat = require('gulp-concat');
 
 var paths = {
-    scripts: ['index.js', 'matchers.js', 'model.js', 'readLineByLine.js'],
+    scripts: ['src/js/*.js'],
     build: 'piolog.min.js'
 };
 
