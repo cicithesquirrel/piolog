@@ -4,9 +4,9 @@
     "description": "Pioneer log parser",
     "main": "src/js/piolog.js",
     "scripts": {
-        "main": "node src/js/main.js",
-        "test": "mocha test/js -R spec --recursive",
-        "debug": "node-debug src/js/main.js"
+        "main": "LOG4JS_CONFIG=log4js-config.json node src/js/main.js",
+        "test": "LOG4JS_CONFIG=log4js-config.json mocha test/js -R spec --recursive",
+        "debug": "LOG4JS_CONFIG=log4js-config.json node-debug src/js/main.js"
     },
     "author": "Cyril Chéné",
     "license": "GPL",

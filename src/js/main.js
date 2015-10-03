@@ -7,7 +7,6 @@ var log4js = require('log4js');
 var beautifier = require('js-beautify');
 var Buffer = require('buffer').Buffer;
 
-log4js.configure('./log4js-config.json', {});
 var logger = log4js.getLogger("piolog.main");
 
 program.version('1.0.0')
