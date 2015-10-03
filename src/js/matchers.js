@@ -79,6 +79,15 @@ var myMatchers = [{
         lastTurn.strongestKnight = name;
     }
     }, {
+    pattern: /(.+) a fait (\d+).$/,
+    onMatch: function (matched, game) {
+        var name = matched[1],
+            turnOfPlayer = game.getLastTurnOfPlayer(name),
+            dice = parseInt(matched[2]);
+
+        turnOfPlayer.dice = dice;
+    }
+    }, {
     pattern: /Début du tour (\d+) pour (.+).$/,
     onMatch: function (matched, game) {
         var name = matched[2],

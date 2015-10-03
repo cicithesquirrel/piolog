@@ -14,12 +14,6 @@ exports.testPlayerName = function (test) {
 
     //console.log(JSON.stringify(game));
 
-    //console.log(game.players['Some Player 0']);
-
-    assert.deepEqual(game.players['Some Player 0'], {});
-    assert.deepEqual(game.players['Some Player 1'], undefined);
-    assert.deepEqual(game.players['Some Player 2'], {});
-
     test.ok(game.playerOrder[0] === 'Some Player 0');
     test.ok(game.playerOrder[1] === undefined);
     test.ok(game.playerOrder[2] === 'Some Player 2');
@@ -51,6 +45,25 @@ exports.testStrongestKnight = function (test) {
     //console.log(JSON.stringify(game));
 
     test.ok(game.turns[0].strongestKnight === 'Some Player');
+
+    test.done();
+};
+
+exports.testAddDice = function (test) {
+
+    test.expect(2);
+
+    var game = model.newGame();
+
+    matchers.match("Some Player a fait 7.", game);
+    matchers.match("Other Player a fait 2.", game);
+
+    var turn = game.turns[0];
+
+    //console.log(JSON.stringify(turn));
+
+    test.ok(turn["Some Player"].dice === 7);
+    test.ok(turn["Other Player"].dice === 2);
 
     test.done();
 };
