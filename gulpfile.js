@@ -7,23 +7,24 @@ var del = require('del');
 var concat = require('gulp-concat');
 
 var paths = {
-    scripts: ['index.js', 'matchers.js', 'model.js', 'readLineByLine.js']
+    scripts: ['index.js', 'matchers.js', 'model.js', 'readLineByLine.js'],
+    build: 'piolog.min.js'
 };
 
-gulp.task('clean', function (cb) {
+gulp.task('clean', function (endCallback) {
     // You can use multiple globbing patterns as you would with `gulp.src` 
-    del(['build'], cb);
+    del(['build']);
+    endCallback();
 });
 
-gulp.task('scripts', /*['clean'],*/ function () {
+gulp.task('scripts', ['clean'], function () {
     // Minify and copy all JavaScript (except vendor scripts) 
     // with sourcemaps all the way down 
     return gulp.src(paths.scripts)
-        .on('error', console.log)
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(concat('all.min.js'))
-        .pipe(sourcemaps.write())
+        .pipe(concat(paths.build))
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('build/js'));
 });
 
