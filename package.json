@@ -9,7 +9,7 @@
         "debug": "LOG4JS_CONFIG=log4js-config.json node-debug src/js/main.js"
     },
     "author": "Cyril Chéné",
-    "license": "GPL",
+    "license": "GPL-3.0",
     "dependencies": {
         "commander": "~2.0.0",
         "log4js": "~0.6.27",
