@@ -1,8 +1,11 @@
-Exécuter les test:
-npm test
+# Description
 
-Exécuter en ligne de commande:
-npm run main -- <args>
+Outil de parsing de log du jeu Pioneer.
 
-Déboguer:
-npm run debug -- <args>
+# Commandes
+
+Commandes utiles :
+
+  * Exécuter les test : npm test
+  * Exécuter en ligne de commande: npm run main -- <args>
+  * Déboguer: npm run debug -- <args>
