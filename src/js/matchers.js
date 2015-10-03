@@ -5,7 +5,6 @@ var myMatchers = [{
     onMatch: function (matched, game) {
         var name = matched[2],
             number = matched[1];
-        game.players[name] = {};
         game.playerOrder[number] = name;
     }
     }, {
@@ -13,7 +12,7 @@ var myMatchers = [{
     onMatch: function (matched, game) {
         var name = matched[1],
             score = matched[2];
-        game.players[name].winner = true;
+        game.winner = name;
     }
     }, {
     pattern: /(.+) fonde une colonie.$/,

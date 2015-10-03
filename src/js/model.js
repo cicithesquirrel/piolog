@@ -18,8 +18,8 @@ exports.newGame = function () {
     var game = {
         startDate: null,
         endDate: null,
-        players: [],
         playerOrder: [],
+        winner: null,
         turns: [{
             number: 0,
             strongestKnight: null,
@@ -55,7 +55,10 @@ exports.newGame = function () {
 
             for (var attr in lastTurn) {
                 nbBonus = 0;
-                if (attr !== "strongestKnight" && attr !== "longestRoad" && attr !== "number" && lastTurn.hasOwnProperty(attr)) {
+                if (attr !== "strongestKnight" &&
+                    attr !== "longestRoad" &&
+                    attr !== "number" &&
+                    lastTurn.hasOwnProperty(attr)) {
 
                     nbColonies = lastTurn[attr].colony;
                     if (nbColonies === undefined) nbColonies = 0;
