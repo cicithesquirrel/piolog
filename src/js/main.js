@@ -7,8 +7,8 @@ var log4js = require('log4js');
 var beautifier = require('js-beautify');
 var Buffer = require('buffer').Buffer;
 
-var logger = log4js.getLogger();
-logger.setLevel('ERROR');
+log4js.configure('./log4js-config.json', {});
+var logger = log4js.getLogger("piolog.main");
 
 program.version('1.0.0')
     .usage('[options] <pio log file>')
@@ -23,7 +23,7 @@ var currentLine = '';
 
 function nextLogFileLine() {
 
-    logger.debug('currentLine: ' + currentLine);
+    logger.trace('currentLine: ' + currentLine);
 
     var retval;
 
@@ -39,7 +39,7 @@ function nextLogFileLine() {
 
             var bytesRead = fs.readSync(input, buffer, 0, bufferSize);
 
-            logger.debug('buffer: ' + buffer);
+            logger.trace('buffer: ' + buffer);
 
             eof = (bytesRead < bufferSize);
 
@@ -49,7 +49,7 @@ function nextLogFileLine() {
         }
     }
 
-    logger.debug('indexOfCR: ' + indexOfCR);
+    logger.trace('indexOfCR: ' + indexOfCR);
 
     if (indexOfCR >= 0) {
         retval = currentLine.substring(0, indexOfCR);
@@ -59,7 +59,7 @@ function nextLogFileLine() {
         currentLine = '';
     }
 
-    logger.debug('retval: ' + retval);
+    logger.trace('retval: ' + retval);
 
     return retval;
 }

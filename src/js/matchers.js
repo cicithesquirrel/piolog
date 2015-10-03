@@ -1,5 +1,8 @@
 "use strict";
 
+var log4js = require('log4js');
+var logger = log4js.getLogger("piolog.matchers");
+
 var myMatchers = [{
     pattern: /Le joueur (\d+) s'appelle maintenant (.+)\.$/,
     onMatch: function (matched, game) {
@@ -100,13 +103,16 @@ var myMatchers = [{
     }];
 
 exports.match = function (message, game) {
-    var match, m, i, nbMatchers = myMatchers.length;
-    for (i = 0; i < nbMatchers; i = i + 1) {
-        m = myMatchers[i];
-        match = message.match(m.pattern);
+    var nbMatchers = myMatchers.length;
+    for (var i = 0; i < nbMatchers; i = i + 1) {
+        var m = myMatchers[i];
+        var match = message.match(m.pattern);
         if (match) {
+            logger.debug("Match found: " + message);
             m.onMatch(match, game);
             return;
+        } else {
+            logger.trace("Ignored line: " + message);
         }
     }
 };
