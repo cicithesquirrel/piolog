@@ -5,7 +5,7 @@
     "main": "src/js/piolog.js",
     "scripts": {
         "main": "node src/js/main.js",
-        "test": "node test/js/testsuite.js"
+        "test": "mocha test/js -R spec --recursive"
     },
     "author": "Cyril Chéné",
     "license": "GPL",
@@ -15,6 +15,6 @@
         "js-beautify": "~1.5.10"
     },
     "devDependencies": {
-        "nodeunit": "~0.9.1"
+        "unit.js": "~2.0.0"
     }
 }

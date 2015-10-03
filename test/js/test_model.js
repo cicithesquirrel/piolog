@@ -1,134 +1,145 @@
 "use strict";
 
-var assert = require('assert');
+var test = require('unit.js');
 var model = require('../../src/js/model');
 
-exports.testCloneWithSubobjects = function (test) {
+describe('"model" tests', function () {
 
-    test.expect(1);
+    describe('Clone', function () {
 
-    var o, clone;
+        it('With Sub-objects', function () {
 
-    o = {
-        someProperty: {},
-        otherProperty: {
-            anotherProperty: [1, 2, 3]
-        }
-    };
+            var o = {
+                someProperty: {},
+                otherProperty: {
+                    anotherProperty: [1, 2, 3]
+                }
+            };
 
-    clone = model.__clone(o);
+            var clone = model.__clone(o);
 
-    //console.log(JSON.stringify(clone));
+            test.object(clone).isNotIdenticalTo(o);
 
-    test.ok(clone !== o);
+            test.object(clone).is(o);
 
-    assert.deepEqual(clone, o);
+        });
 
-    test.done();
-};
+        it('With properties', function () {
 
-exports.testCloneWithProperties = function (test) {
+            var o = {
+                someProperty: "Some Value",
+                otherProperty: [1, 2, 3]
+            };
 
-    test.expect(1);
+            var clone = model.__clone(o);
 
-    var o, clone;
+            test.object(clone).isNotIdenticalTo(o);
 
-    o = {
-        someProperty: "Some Value",
-        otherProperty: [1, 2, 3]
-    };
+            test.object(clone).is(o);
 
-    clone = model.__clone(o);
+        });
 
-    //console.log(JSON.stringify(clone));
+        it('Empty', function () {
+            var o = {};
 
-    test.ok(clone !== o);
+            var clone = model.__clone(o);
 
-    assert.deepEqual(clone, o);
+            test.object(clone).isNotIdenticalTo(o);
+            test.object(clone).is(o);
 
-    test.done();
-};
+            clone.someProperty = "Some Value";
 
-exports.testCloneWhenEmpty = function (test) {
+            test.object(o).hasNotProperty("someProperty");
+        });
 
-    test.expect(2);
+    });
 
-    var o, clone;
+    describe('Get last turn number', function () {
 
-    o = {};
-    clone = model.__clone(o);
+        it('Initial turn', function () {
+            var game = model.newGame();
 
-    assert.deepEqual(clone, o);
+            test.number(game.getLastTurnNumber()).is(0);
 
-    clone.someProperty = "Some Value";
+        });
 
-    test.ok(clone !== o);
-    test.ok(!o.someProperty, "Property added to clone should not be added to original object");
+        it('Nth turn', function () {
+            var game = model.newGame();
+            game.startNextTurn();
+            game.startNextTurn();
 
-    test.done();
-};
+            test.number(game.getLastTurnNumber()).is(2);
+        });
 
-exports.testGetLastTurnNumber = function (test) {
 
-    test.expect(3);
+    });
 
-    var game = model.newGame();
+    describe('Score', function () {
 
-    test.ok(game.getLastTurnNumber() === 0, "Was " + game.getLastTurnNumber());
+        it('For nothing', function () {
 
-    game.startNextTurn();
+            test.number(model.getScore(0, 0, 0)).is(0);
+        });
 
-    test.ok(game.getLastTurnNumber() === 1, "Was " + game.getLastTurnNumber());
+        it('For colonies', function () {
 
-    game.startNextTurn();
+            test.number(model.getScore(1, 0, 0)).is(1);
+            test.number(model.getScore(2, 0, 0)).is(2);
+        });
 
-    test.ok(game.getLastTurnNumber() === 2, "Was " + game.getLastTurnNumber());
+        it('For cities', function () {
 
-    test.done();
-};
+            test.number(model.getScore(0, 1, 0)).is(2);
+            test.number(model.getScore(0, 2, 0)).is(4);
+        });
 
-exports.testGetScore = function (test) {
-    test.expect(6);
+        it('For bonuses', function () {
 
-    test.ok(1 === model.getScore(1, 0, 0), 'Score for 1 colony must be 1');
-    test.ok(2 === model.getScore(2, 0, 0), 'Score for 2 colonies must be 2');
+            test.number(model.getScore(0, 0, 1)).is(2);
+            test.number(model.getScore(0, 0, 2)).is(4);
+        });
+    });
 
-    test.ok(2 === model.getScore(0, 1, 0), 'Score for 1 city must be 2');
-    test.ok(4 === model.getScore(0, 2, 0), 'Score for 2 cities must be 4');
+    describe('Update score of turn', function () {
 
-    test.ok(2 === model.getScore(0, 0, 1), 'Score for single bonus must be 2');
+        it('For 1 colony and 2 cities', function () {
 
-    test.ok(4 === model.getScore(0, 0, 2), 'Score for both bonuses must be 4');
+            var game = model.newGame();
+            var turnOfPlayer = game.getLastTurnOfPlayer("Some Player");
+            turnOfPlayer.colony = 1;
+            turnOfPlayer.city = 2;
 
-    test.done();
-};
+            game.updateScoreOfLastTurn();
 
-exports.testUpdateScoreOfLastTurn = function (test) {
-    test.expect(3);
+            test.number(turnOfPlayer.score).is(5);
+        });
 
-    var game = model.newGame(),
-        turnOfPlayer = game.getLastTurnOfPlayer("Some Player"),
-        turn = game.getLastTurn();
+        it('With 1 bonus', function () {
 
-    turnOfPlayer.colony = 1;
-    turnOfPlayer.city = 2;
+            var game = model.newGame();
+            var turn = game.getLastTurn();
+            var turnOfPlayer = game.getLastTurnOfPlayer("Some Player");
+            turn.strongestKnight = "Some Player";
+            turn.longestRoad = "Other Player";
 
-    game.updateScoreOfLastTurn();
+            game.updateScoreOfLastTurn();
 
-    test.ok(5 === turnOfPlayer.score, 'Score for 1 colony and 2 cities must be 5');
+            test.number(turnOfPlayer.score).is(2);
+        });
 
-    turn.strongestKnight = "Some Player";
-    turn.longestRoad = "Other Player";
+        it('With 2 bonuses', function () {
 
-    game.updateScoreOfLastTurn();
+            var game = model.newGame();
+            var turn = game.getLastTurn();
+            var turnOfPlayer = game.getLastTurnOfPlayer("Some Player");
+            turn.strongestKnight = "Some Player";
+            turn.longestRoad = "Some Player";
 
-    test.ok(7 === turnOfPlayer.score, 'Score for 1 colony and 2 cities and Strongest Knight must be 7');
+            game.updateScoreOfLastTurn();
 
-    turn.longestRoad = "Some Player";
+            test.number(turnOfPlayer.score).is(4);
+        });
+    });
 
-    game.updateScoreOfLastTurn();
 
-    test.ok(9 === turnOfPlayer.score, 'Score for 1 colony and 2 cities and Strongest Knight and Longest Road must be 9');
-
-    test.done();
-};
+});
