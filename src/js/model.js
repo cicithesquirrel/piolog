@@ -1,8 +1,5 @@
 "use strict";
 
-var log4js = require('log4js');
-var logger = log4js.getLogger();
-
 exports.__clone = function (obj) {
     if (null === obj || "object" != typeof obj) return obj;
     var copy = obj.constructor();
@@ -70,7 +67,6 @@ exports.newGame = function () {
                     if (attr === longestRoad) nbBonus = nbBonus + 1;
 
                     score = exports.getScore(nbColonies, nbCities, nbBonus);
-                    //logger.debug(attr + " has score: " + score + "(" + nbColonies + "," + nbCities + "," + nbBonus + ")");
                     lastTurn[attr].score = score;
                 }
             }

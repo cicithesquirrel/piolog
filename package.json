@@ -2,9 +2,9 @@
     "name": "piolog",
     "version": "1.0.0",
     "description": "Pioneer log parser",
-    "main": "src/js/index.js",
+    "main": "src/js/piolog.js",
     "scripts": {
-        "main": "node src/js/index.js",
+        "main": "node src/js/main.js",
         "test": "node test/js/testsuite.js"
     },
     "author": "Cyril Chéné",

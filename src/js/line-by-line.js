@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-exports.read = function (fileName, onReadLine, onEndOfFile) {
+exports.read = function (fileName, obj, onReadLine, onEndOfFile) {
     var input = fs.createReadStream(fileName),
         remaining = '';
 
@@ -13,15 +13,15 @@ exports.read = function (fileName, onReadLine, onEndOfFile) {
         while (index > -1) {
             line = remaining.substring(0, index);
             remaining = remaining.substring(index + 1);
-            onReadLine(line);
+            onReadLine(obj, line);
             index = remaining.indexOf('\n');
         }
     });
 
     input.on('end', function () {
         if (remaining.length > 0) {
-            onReadLine(remaining);
+            onReadLine(obj, remaining);
         }
-        onEndOfFile();
+        onEndOfFile(obj);
     });
 };
