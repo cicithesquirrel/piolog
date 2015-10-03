@@ -5,7 +5,8 @@
     "main": "src/js/piolog.js",
     "scripts": {
         "main": "node src/js/main.js",
-        "test": "mocha test/js -R spec --recursive"
+        "test": "mocha test/js -R spec --recursive",
+        "debug": "node-debug src/js/main.js"
     },
     "author": "Cyril Chéné",
     "license": "GPL",

@@ -1,6 +1,5 @@
 "use strict";
 
-var lineByLine = require('./line-by-line');
 var matchers = require('./matchers');
 var model = require('./model');
 
@@ -23,14 +22,20 @@ function onLine(game, line) {
     matchers.match(message, game);
 }
 
-exports.parse = function (pioLogFileName, onEndCallback) {
+
+exports.parse = function (nextLineFunction) {
 
     var game = model.newGame();
 
-    function onEndOfFile(game)  {
-        game.updateScoreOfLastTurn();
-        onEndCallback(game);
+    var line = nextLineFunction();
+    while (line) {
+
+        onLine(game, line);
+
+        line = nextLineFunction();
     }
 
-    lineByLine.read(pioLogFileName, game, onLine, onEndOfFile);
+    game.updateScoreOfLastTurn();
+
+    return game;
 };

@@ -3,7 +3,12 @@
 var piolog = require('./piolog');
 var fs = require('fs');
 var program = require('commander');
+var log4js = require('log4js');
 var beautifier = require('js-beautify');
+var Buffer = require('buffer').Buffer;
+
+var logger = log4js.getLogger();
+logger.setLevel('ERROR');
 
 program.version('1.0.0')
     .usage('[options] <pio log file>')
@@ -11,23 +16,71 @@ program.version('1.0.0')
     .option('-b, --beautify', 'Beautify output')
     .parse(process.argv);
 
-var inputFileName = program.args[0];
+// open file
+var input = fs.openSync(program.args[0], 'r');
 
-function onEnd(game) {
+var currentLine = '';
 
-    var text = JSON.stringify(game);
+function nextLogFileLine() {
 
-    if (program.beautify) {
-        text = beautifier.js_beautify(text);
+    logger.debug('currentLine: ' + currentLine);
+
+    var retval;
+
+    var indexOfCR = currentLine.indexOf('\n');
+
+    if (indexOfCR < 0) {
+
+        var eof = false;
+        var bufferSize = 32;
+        var buffer = new Buffer(bufferSize);
+
+        while (indexOfCR < 0 && !eof) {
+
+            var bytesRead = fs.readSync(input, buffer, 0, bufferSize);
+
+            logger.debug('buffer: ' + buffer);
+
+            eof = (bytesRead < bufferSize);
+
+            currentLine = currentLine + buffer.toString();
+
+            indexOfCR = currentLine.indexOf('\n');
+        }
     }
 
-    if (!program.out) {
-        console.log(text);
-    } else {
-        var outFd = fs.openSync(program.out, 'w');
-        fs.writeSync(outFd, text);
-        fs.close(outFd);
+    logger.debug('indexOfCR: ' + indexOfCR);
+
+    if (indexOfCR >= 0) {
+        retval = currentLine.substring(0, indexOfCR);
+        currentLine = currentLine.substring(indexOfCR + 1, currentLine.length);
+    } else if (currentLine.trim() !== '') {
+        retval = currentLine;
+        currentLine = '';
     }
+
+    logger.debug('retval: ' + retval);
+
+    return retval;
 }
 
-piolog.parse(inputFileName, onEnd);
+// parse file
+var game = piolog.parse(nextLogFileLine);
+
+// close fine
+fs.closeSync(input);
+
+// generate output
+var text = JSON.stringify(game);
+
+if (program.beautify) {
+    text = beautifier.js_beautify(text);
+}
+
+if (!program.out || program.out == 'stdout') {
+    console.log(text);
+} else {
+    var outFd = fs.openSync(program.out, 'w');
+    fs.writeSync(outFd, text);
+    fs.close(outFd);
+}
