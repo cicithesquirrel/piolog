@@ -42,13 +42,10 @@ var myMatchers = [{
     }, {
     pattern: /(.+) retire une route.$/,
     onMatch: function (matched, game) {
-        var name = matched[1],
-            turnOfPlayer = game.getLastTurnOfPlayer(name);
-        if (turnOfPlayer.road) {
-            turnOfPlayer.road = turnOfPlayer.road - 1;
-        } else {
-            turnOfPlayer.road = -1;
-        }
+        var name = matched[1];
+        var turnOfPlayer = game.getLastTurnOfPlayer(name);
+        turnOfPlayer.road = turnOfPlayer.road - 1;
+
     }
     }, {
     pattern: /(.+) érige une ville.$/,
