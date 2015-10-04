@@ -1,6 +1,6 @@
 # Description
 
-Outil de parsing de log du jeu [Pioneers](http://pio.sourceforge.net/). Cela n'a aucun autre intérêt que découvrir l'environnement de travail [Node.js](https://nodejs.org/en/) :
+API de parsing de log du jeu [Pioneers](http://pio.sourceforge.net/). Cela n'a aucun autre intérêt que découvrir l'environnement de travail [Node.js](https://nodejs.org/en/) :
   * [NPM](https://www.npmjs.com/) pour la gestion des dépendances,
   * [Gulp](http://gulpjs.com/) pour le _build_,
   * [JSHint](http://jshint.com/) pour l'audit de qualité du code,
