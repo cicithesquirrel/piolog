@@ -7,7 +7,7 @@
         "test": "LOG4JS_CONFIG=log4js-config.json istanbul test _mocha -- test/js -R spec --recursive",
         "debug-test": "LOG4JS_CONFIG=log4js-config.json node-debug _mocha"
     },
-    "author": "Cyril Chéné",
+    "author": "Cyril \"cicithesquirrel\"",
     "license": "GPL-2.0",
     "repository": {
         "type": "git",
