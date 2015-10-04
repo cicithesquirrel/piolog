@@ -11,6 +11,7 @@ Outil de parsing de log du jeu [Pioneers](http://pio.sourceforge.net/).
      * Le rapport est dans `./coverage/lcov-report/index.html`
   * Exécuter en ligne de commande : `npm run main -- [args]`
   * Déboguer avec Chrome : `npm run debug -- [args]`
+  * Déboguer les tests avec Chrome : `npm run debug-test -- [fichier js de test]`
 
 Voir commandes dans le fichier `package.json`.
 
