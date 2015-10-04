@@ -10,7 +10,11 @@
         "debug": "LOG4JS_CONFIG=log4js-config.json node-debug src/js/main.js"
     },
     "author": "Cyril Chéné",
-    "license": "GPL-3.0",
+    "license": "GPL-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cicithesquirrel/piolog.git"
+    },
     "dependencies": {
         "commander": "~2.0.0",
         "log4js": "~0.6.27",
