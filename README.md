@@ -38,13 +38,12 @@ Voir les commandes dans le fichier `gulpfile.js`.
 # Structure du projet
 
   * `src/js` : Sources
-    * `main.js` : Programme en ligne de commande
     * `matchers.js` : Reconnaissance des lignes du fichier de log
     * `model.js` : Définition du modèle de données
     * `piolog.js` : Parser de log
   * `test/js` : Sources des tests
   * `log4js-config.json` : Exemple de configuration des loggers
-  * `.jshinttc` : Configuration JSHint
+  * `.jshintrc` : Configuration JSHint
   * `.gitignore` : Configuration Git
   * `gulpfile.js` : Script de build Gulp
   * `package.json` : Configuration NPM

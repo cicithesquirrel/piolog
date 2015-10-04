@@ -10,7 +10,7 @@ var env = require('gulp-env');
 var cover = require('gulp-coverage');
 
 var paths = {
-    scripts: ['src/js/*.js', '!src/js/main.js'],
+    scripts: ['src/js/*.js'],
     build: 'piolog.min.js',
     tests: ['test/**/*.js']
 };
@@ -26,7 +26,7 @@ gulp.task('set-run-env', function (endCallback) {
         vars: {
             LOG4JS_CONFIG: 'log4js-config.json'
         }
-    })
+    });
     endCallback();
 });
 

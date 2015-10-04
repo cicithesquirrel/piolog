@@ -4,10 +4,8 @@
     "description": "Pioneer log parser",
     "main": "src/js/piolog.js",
     "scripts": {
-        "main": "LOG4JS_CONFIG=log4js-config.json node src/js/main.js",
         "test": "LOG4JS_CONFIG=log4js-config.json istanbul test _mocha -- test/js -R spec --recursive",
-        "debug-test": "LOG4JS_CONFIG=log4js-config.json node-debug _mocha",
-        "debug": "LOG4JS_CONFIG=log4js-config.json node-debug src/js/main.js"
+        "debug-test": "LOG4JS_CONFIG=log4js-config.json node-debug _mocha"
     },
     "author": "Cyril Chéné",
     "license": "GPL-2.0",
@@ -17,8 +15,7 @@
     },
     "dependencies": {
         "commander": "~2.0.0",
-        "log4js": "~0.6.27",
-        "js-beautify": "~1.5.10"
+        "log4js": "~0.6.27"
     },
     "devDependencies": {
         "del": "~2.0.2",
