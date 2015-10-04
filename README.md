@@ -48,3 +48,7 @@ Voir les commandes dans le fichier `gulpfile.js`.
   * `gulpfile.js` : Script de build Gulp
   * `package.json` : Configuration NPM
   * `README.md` : Documentation du module
+
+# Interfaces disponibles
+
+Ce module ne consiste qu'en une API. Le module [piolog-cli](https://github.com/cicithesquirrel/piolog-cli) est une interface en ligne de commande pour cette API.
