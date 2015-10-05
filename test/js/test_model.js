@@ -141,5 +141,59 @@ describe('"model" tests', function () {
         });
     });
 
+    describe('Statistics', function () {
+
+        it('Number of turns at start', function () {
+
+            var game = model.newGame();
+            var stats = model.computeStats(game);
+
+            test.number(stats.numberOfTurns).is(0);
+        });
+
+        it('Number of turns at turn #3', function () {
+
+            var game = model.newGame();
+            game.startNextTurn();
+            game.startNextTurn();
+            game.startNextTurn();
+
+            var stats = model.computeStats(game);
+
+            test.number(stats.numberOfTurns).is(3);
+        });
+
+        it('Dice stats at start', function () {
+
+            var game = model.newGame();
+
+            var stats = model.computeStats(game);
+
+            test.number(stats.dice.totalNumber).is(0);
+            test.array(stats.dice.byScore).is([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        });
+
+        it('Dice stats at after a few turns', function () {
+
+            var game = model.newGame();
+            game.startNextTurn();
+            game.getLastTurnOfPlayer("Player 1").dice = 3;
+            game.getLastTurnOfPlayer("Player 2").dice = 2;
+            game.getLastTurnOfPlayer("Player 3").dice = 8;
+            game.getLastTurnOfPlayer("Player 4").dice = 2;
+            game.startNextTurn();
+            game.getLastTurnOfPlayer("Player 1").dice = 7;
+            game.getLastTurnOfPlayer("Player 2").dice = 2;
+            game.getLastTurnOfPlayer("Player 3").dice = 12;
+            game.getLastTurnOfPlayer("Player 4").dice = 8;
+
+            var stats = model.computeStats(game);
+
+            test.number(stats.dice.totalNumber).is(8);
+            test.array(stats.dice.byScore).is([3, 1, 0, 0, 0, 1, 2, 0, 0, 0, 1]);
+        });
+
+    });
+
 
 });

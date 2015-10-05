@@ -78,3 +78,28 @@ exports.newGame = function () {
     };
     return game;
 };
+
+function computeDiceStats(game) {
+    var retval = {
+        byScore: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        totalNumber: 0
+    };
+    for (var i in game.turns) {
+        var turn = game.turns[i];
+        for (var attr in turn) {
+            var o = turn[attr];
+            if (o !== null && o.dice) {
+                retval.byScore[o.dice - 2] = retval.byScore[o.dice - 2] + 1;
+                retval.totalNumber = retval.totalNumber + 1;
+            }
+        }
+    }
+    return retval;
+}
+
+exports.computeStats = function (game) {
+    return {
+        numberOfTurns: game.getLastTurnNumber(),
+        dice: computeDiceStats(game)
+    };
+};
