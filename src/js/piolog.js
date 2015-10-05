@@ -39,3 +39,6 @@ exports.parse = function (nextLineFunction) {
 
     return game;
 };
+
+
+exports.computeStats = model.computeStats;
