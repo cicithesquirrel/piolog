@@ -37,8 +37,7 @@ exports.parse = function (nextLineFunction) {
 
     game.updateScoreOfLastTurn();
 
+    game.stats = model.computeStats(game);
+
     return game;
 };
-
-
-exports.computeStats = model.computeStats;
