@@ -33,7 +33,7 @@ describe('"matchers" tests', function () {
         matchers.match("Some Player a fait 7.", game);
         matchers.match("Other Player a fait 2.", game);
 
-        var turn = game.turns[0];
+        var turn = game.turns[0].players;
 
         test.number(turn['Some Player'].dice).is(7);
         test.number(turn['Other Player'].dice).is(2);
@@ -87,7 +87,7 @@ describe('"matchers" tests', function () {
         var game = model.newGame();
         matchers.match("Début du tour 0 pour Some Player.", game);
 
-        console.log(JSON.stringify(game));
+        //console.log(JSON.stringify(game));
 
         test.number(game.turns.length).is(1);
 

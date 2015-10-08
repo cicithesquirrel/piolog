@@ -23,10 +23,11 @@ exports.newGame = function () {
         turns: [{
             number: 0,
             strongestKnight: null,
-            longestRoad: null
+            longestRoad: null,
+            players: {}
         }],
         getLastTurnOfPlayer: function (playerName) {
-            var lastTurn = this.getLastTurn();
+            var lastTurn = this.getLastTurn().players;
             if (!lastTurn[playerName]) {
                 lastTurn[playerName] = {};
             }
@@ -53,24 +54,23 @@ exports.newGame = function () {
                 longestRoad = lastTurn.longestRoad,
                 score, nbColonies, nbCities, nbBonus;
 
-            for (var attr in lastTurn) {
-                nbBonus = 0;
-                if (attr !== "strongestKnight" &&
-                    attr !== "longestRoad" &&
-                    attr !== "number" &&
-                    lastTurn.hasOwnProperty(attr)) {
+            var turnOfPlayers = lastTurn.players;
 
-                    nbColonies = lastTurn[attr].colony;
+            for (var attr in turnOfPlayers) {
+                nbBonus = 0;
+                if (turnOfPlayers.hasOwnProperty(attr)) {
+
+                    nbColonies = turnOfPlayers[attr].colony;
                     if (nbColonies === undefined) nbColonies = 0;
 
-                    nbCities = lastTurn[attr].city;
+                    nbCities = turnOfPlayers[attr].city;
                     if (nbCities === undefined) nbCities = 0;
 
                     if (attr === strongestKnight) nbBonus = nbBonus + 1;
                     if (attr === longestRoad) nbBonus = nbBonus + 1;
 
                     score = exports.getScore(nbColonies, nbCities, nbBonus);
-                    lastTurn[attr].score = score;
+                    turnOfPlayers[attr].score = score;
                 }
             }
 
@@ -85,9 +85,9 @@ function computeDiceStats(game) {
         totalNumber: 0
     };
     for (var i in game.turns) {
-        var turn = game.turns[i];
-        for (var attr in turn) {
-            var o = turn[attr];
+        var playersInTurn = game.turns[i].players;
+        for (var playerName in playersInTurn) {
+            var o = playersInTurn[playerName];
             if (o !== null && o.dice) {
                 retval.byScore[o.dice - 2] = retval.byScore[o.dice - 2] + 1;
                 retval.totalNumber = retval.totalNumber + 1;
