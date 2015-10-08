@@ -108,8 +108,7 @@ exports.match = function (message, game) {
             logger.debug("Match found: " + message);
             m.onMatch(match, game);
             return;
-        } else {
-            logger.trace("Ignored line: " + message);
         }
     }
+    logger.trace("Ignored line: " + message);
 };
