@@ -1,6 +1,6 @@
 {
     "name": "piolog",
-    "version": "1.0.0",
+    "version": "1.1.0-beta",
     "description": "Pioneer log parser",
     "main": "src/js/piolog.js",
     "scripts": {
