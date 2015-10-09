@@ -25,6 +25,7 @@ exports.newGame = function () {
         endDate: null,
         playerOrder: [],
         podium: [],
+        winner: null,
         turns: [{
             number: 0,
             strongestKnight: null,

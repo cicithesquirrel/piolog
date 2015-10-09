@@ -58,6 +58,8 @@ describe('"matchers" tests', function () {
             name: "Another Player",
             score: 8
         }]);
+
+        test.string(game.winner).is("Other Player");
     });
 
     it('Add colonies', function () {

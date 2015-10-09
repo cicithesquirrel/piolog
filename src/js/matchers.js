@@ -33,6 +33,10 @@ var myMatchers = [{
         game.podium.sort(function (o1, o2) {
             return o2.score - o1.score;
         });
+
+        if (game.podium[0]) {
+            game.winner = game.podium[0].name;
+        }
     }
     }, {
     pattern: /(.+) fonde une colonie.$/,
