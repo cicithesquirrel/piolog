@@ -1,3 +1,8 @@
+/**
+ * Provides log line parser, with resulting actions that modify the model.
+ *
+ * @module matchers
+ */
 "use strict";
 
 var log4js = require('log4js');

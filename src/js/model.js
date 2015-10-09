@@ -1,3 +1,8 @@
+/**
+ * Provides model structure definition and some helper methods.
+ *
+ * @module model
+ */
 "use strict";
 
 exports.__clone = function (obj) {

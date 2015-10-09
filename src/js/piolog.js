@@ -1,3 +1,8 @@
+/**
+ * Provides the parser entry point.
+ *
+ * @module piolog
+ */
 "use strict";
 
 var matchers = require('./matchers');

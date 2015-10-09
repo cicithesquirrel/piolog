@@ -5,7 +5,8 @@
     "main": "src/js/piolog.js",
     "scripts": {
         "test": "LOG4JS_CONFIG=log4js-config.json istanbul test _mocha -- test/js -R spec --recursive",
-        "debug-test": "LOG4JS_CONFIG=log4js-config.json node-debug _mocha"
+        "debug-test": "LOG4JS_CONFIG=log4js-config.json node-debug _mocha",
+        "doc": "yuidoc -o doc src/"
     },
     "author": "Cyril \"cicithesquirrel\"",
     "license": "GPL-2.0",
@@ -28,7 +29,8 @@
         "gulp-uglify": "~1.4.1",
         "istanbul": "~0.3.21",
         "mocha": "~2.3.3",
-        "unit.js": "~2.0.0"
+        "unit.js": "~2.0.0",
+        "yuidocjs": "~0.9.0"
     },
     "readme": "README.md"
 }
