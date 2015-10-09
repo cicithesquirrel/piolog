@@ -15,7 +15,19 @@ var myMatchers = [{
     onMatch: function (matched, game) {
         var name = matched[1],
             score = matched[2];
-        game.winner = name;
+
+        var playersInLastTurn = game.getLastTurn().players;
+        for (var playerName in playersInLastTurn) {
+            var player = playersInLastTurn[playerName];
+            game.podium.push({
+                name: playerName,
+                score: player.score
+            });
+        }
+
+        game.podium.sort(function (o1, o2) {
+            return o2.score - o1.score;
+        });
     }
     }, {
     pattern: /(.+) fonde une colonie.$/,

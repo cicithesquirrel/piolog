@@ -41,9 +41,23 @@ describe('"matchers" tests', function () {
 
     it('Set winner', function () {
         var game = model.newGame();
-        matchers.match("Some Player a gagné la partie avec 11 points de victoire !", game);
 
-        test.string(game.winner).is('Some Player');
+        game.getLastTurnOfPlayer("Some Player").score = 9;
+        game.getLastTurnOfPlayer("Other Player").score = 11;
+        game.getLastTurnOfPlayer("Another Player").score = 8;
+
+        matchers.match("Other Player a gagné la partie avec 11 points de victoire !", game);
+
+        test.object(game.podium).is([{
+            name: "Other Player",
+            score: 11
+        }, {
+            name: "Some Player",
+            score: 9
+        }, {
+            name: "Another Player",
+            score: 8
+        }]);
     });
 
     it('Add colonies', function () {

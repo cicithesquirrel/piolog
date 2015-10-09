@@ -19,7 +19,7 @@ exports.newGame = function () {
         startDate: null,
         endDate: null,
         playerOrder: [],
-        winner: null,
+        podium: [],
         turns: [{
             number: 0,
             strongestKnight: null,
