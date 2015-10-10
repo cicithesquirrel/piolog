@@ -85,7 +85,7 @@ exports.newGame = function () {
     return game;
 };
 
-function computeDiceStats(game) {
+function computeDiceTotalStats(game) {
     var retval = {
         byScore: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         totalNumber: 0
@@ -103,9 +103,47 @@ function computeDiceStats(game) {
     return retval;
 }
 
+
+exports.__computeDiceByPlayerStats = function (game) {
+
+    var byDiceArray = [];
+    for (var po in game.playerOrder) {
+        var byPlayer = {
+            name: game.playerOrder[po],
+            times: 0
+        };
+        byDiceArray.push(byPlayer);
+    }
+
+    var retval = [];
+    for (var dice = 2; dice <= 12; dice++) {
+        retval[dice] = exports.__clone(byDiceArray);
+    }
+
+    for (var i in game.turns) {
+        var playersInTurn = game.turns[i].players;
+        for (var playerName in playersInTurn) {
+            var o = playersInTurn[playerName];
+            if (o !== null && o.dice) {
+
+                var byPlayerForDice = retval[o.dice];
+                for (var bpfd in byPlayerForDice) {
+                    if (byPlayerForDice[bpfd].name === playerName) {
+                        byPlayerForDice[bpfd].times = byPlayerForDice[bpfd].times + 1;
+                    }
+                }
+
+            }
+        }
+    }
+
+    return retval;
+};
+
 exports.computeStats = function (game) {
     return {
         numberOfTurns: game.getLastTurnNumber(),
-        dice: computeDiceStats(game)
+        dice: computeDiceTotalStats(game),
+        diceByPlayer: exports.__computeDiceByPlayerStats(game)
     };
 };

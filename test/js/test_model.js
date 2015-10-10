@@ -193,6 +193,80 @@ describe('"model" tests', function () {
             test.array(stats.dice.byScore).is([3, 1, 0, 0, 0, 1, 2, 0, 0, 0, 1]);
         });
 
+        it('Dice stats by player at after a few turns', function () {
+
+            var game = model.newGame();
+            game.playerOrder = ["Player 1", "Player 2", "Player 3", "Player 4"];
+            game.startNextTurn();
+            game.getLastTurnOfPlayer("Player 1").dice = 3;
+            game.getLastTurnOfPlayer("Player 2").dice = 2;
+            game.getLastTurnOfPlayer("Player 3").dice = 2;
+            game.getLastTurnOfPlayer("Player 4").dice = 2;
+            game.startNextTurn();
+            game.getLastTurnOfPlayer("Player 1").dice = 3;
+            game.getLastTurnOfPlayer("Player 2").dice = 2;
+            game.getLastTurnOfPlayer("Player 3").dice = 7;
+            game.getLastTurnOfPlayer("Player 4").dice = 2;
+
+            var stats = model.__computeDiceByPlayerStats(game);
+
+            test.array(stats[2]).is([{
+                name: "Player 1",
+                times: 0
+            }, {
+                name: "Player 2",
+                times: 2
+            }, {
+                name: "Player 3",
+                times: 1
+            }, {
+                name: "Player 4",
+                times: 2
+            }]);
+
+            test.array(stats[3]).is([{
+                name: "Player 1",
+                times: 2
+            }, {
+                name: "Player 2",
+                times: 0
+            }, {
+                name: "Player 3",
+                times: 0
+            }, {
+                name: "Player 4",
+                times: 0
+            }]);
+
+            test.array(stats[4]).is([{
+                name: "Player 1",
+                times: 0
+            }, {
+                name: "Player 2",
+                times: 0
+            }, {
+                name: "Player 3",
+                times: 0
+            }, {
+                name: "Player 4",
+                times: 0
+            }]);
+
+            test.array(stats[7]).is([{
+                name: "Player 1",
+                times: 0
+            }, {
+                name: "Player 2",
+                times: 0
+            }, {
+                name: "Player 3",
+                times: 1
+            }, {
+                name: "Player 4",
+                times: 0
+            }]);
+        });
+
     });
 
 
