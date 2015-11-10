@@ -173,6 +173,22 @@ describe('"model" tests', function () {
             test.array(stats.dice.byScore).is([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
         });
 
+        it('Dice reset at beginning of a new turn', function () {
+
+            var game = model.newGame();
+            game.startNextTurn();
+            game.getLastTurnOfPlayer("Player 1").dice = 3;
+            game.getLastTurnOfPlayer("Player 2").dice = 2;
+            game.getLastTurnOfPlayer("Player 3").dice = 8;
+            game.getLastTurnOfPlayer("Player 4").dice = 2;
+            game.startNextTurn();
+
+            var stats = model.computeStats(game);
+
+            test.number(stats.dice.totalNumber).is(4);
+            test.array(stats.dice.byScore).is([2, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0]);
+        });
+
         it('Dice stats at after a few turns', function () {
 
             var game = model.newGame();

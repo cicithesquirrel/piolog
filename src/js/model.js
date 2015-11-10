@@ -52,6 +52,15 @@ exports.newGame = function () {
                 cloned;
             cloned = exports.__clone(lastTurn);
             cloned.number = cloned.number + 1;
+
+            var turnOfPlayers = cloned.players;
+
+            for (var attr in turnOfPlayers) {
+                if (turnOfPlayers.hasOwnProperty(attr)) {
+                    turnOfPlayers[attr].dice = undefined;
+                }
+            }
+
             this.turns.push(cloned);
         },
         updateScoreOfLastTurn: function () {
