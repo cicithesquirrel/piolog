@@ -42,21 +42,24 @@ describe('"matchers" tests', function () {
     it('Set winner', function () {
         var game = model.newGame();
 
-        game.getLastTurnOfPlayer("Some Player").score = 9;
-        game.getLastTurnOfPlayer("Other Player").score = 11;
-        game.getLastTurnOfPlayer("Another Player").score = 8;
+        game.getLastTurnOfPlayer("Some Player").city = 2;
+        game.getLastTurnOfPlayer("Some Player").colony = 3;
+        game.getLastTurnOfPlayer("Other Player").city = 4;
+        game.getLastTurnOfPlayer("Other Player").colony = 5;
+        game.getLastTurnOfPlayer("Another Player").city = 0;
+        game.getLastTurnOfPlayer("Another Player").colony = 1;
 
         matchers.match("Other Player a gagné la partie avec 11 points de victoire !", game);
 
         test.object(game.podium).is([{
             name: "Other Player",
-            score: 11
+            score: 13
         }, {
             name: "Some Player",
-            score: 9
+            score: 7
         }, {
             name: "Another Player",
-            score: 8
+            score: 1
         }]);
 
         test.string(game.winner).is("Other Player");

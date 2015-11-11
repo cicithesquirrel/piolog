@@ -21,6 +21,8 @@ var myMatchers = [{
         var name = matched[1],
             score = matched[2];
 
+        game.updateScoreOfLastTurn();
+
         var playersInLastTurn = game.getLastTurn().players;
         for (var playerName in playersInLastTurn) {
             var player = playersInLastTurn[playerName];
