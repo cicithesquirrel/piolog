@@ -111,6 +111,17 @@ var myMatchers = [{
         turnOfPlayer.dice = dice;
     }
     }, {
+    pattern: /(.+) joue la carte de développement (.+).$/,
+    onMatch: function (matched, game) {
+        var name = matched[1],
+            turnOfPlayer = game.getLastTurnOfPlayer(name),
+            card = matched[2];
+
+        if (!turnOfPlayer.cards) turnOfPlayer.cards = {};
+        if (!turnOfPlayer.cards[card]) turnOfPlayer.cards[card] = 0;
+        turnOfPlayer.cards[card] = turnOfPlayer.cards[card] + 1;
+    }
+    }, {
     pattern: /Début du tour (\d+) pour (.+).$/,
     onMatch: function (matched, game) {
         var name = matched[2],

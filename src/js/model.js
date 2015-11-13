@@ -14,8 +14,15 @@ exports.__clone = function (obj) {
     return copy;
 };
 
-exports.getScore = function (nbColony, nbCity, nbBonus) {
+exports.getScore = function (nbColony, nbCity, nbBonus, cards) {
     var score = nbColony + 2 * nbCity + 2 * nbBonus;
+    if (cards) {
+        if (cards.Bibliothèque) score = score + cards.Bibliothèque;
+        if (cards.Chapelle) score = score + cards.Chapelle;
+        if (cards.Marché) score = score + cards.Marché;
+        if (cards['Palais du Gouverneur']) score = score + cards['Palais du Gouverneur'];
+        if (cards.Université) score = score + cards.Université;
+    }
     return score;
 };
 
@@ -84,7 +91,7 @@ exports.newGame = function () {
                     if (attr === strongestKnight) nbBonus = nbBonus + 1;
                     if (attr === longestRoad) nbBonus = nbBonus + 1;
 
-                    score = exports.getScore(nbColonies, nbCities, nbBonus);
+                    score = exports.getScore(nbColonies, nbCities, nbBonus, turnOfPlayers[attr].cards);
                     turnOfPlayers[attr].score = score;
                 }
             }

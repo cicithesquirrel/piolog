@@ -98,6 +98,28 @@ describe('"model" tests', function () {
             test.number(model.getScore(0, 0, 1)).is(2);
             test.number(model.getScore(0, 0, 2)).is(4);
         });
+
+        it('For cards', function () {
+
+            test.number(model.getScore(0, 0, 0, {
+                "Bibliothèque": 1
+            })).is(1);
+            test.number(model.getScore(0, 0, 0, {
+                "Chapelle": 1
+            })).is(1);
+            test.number(model.getScore(0, 0, 0, {
+                "Marché": 1
+            })).is(1);
+            test.number(model.getScore(0, 0, 0, {
+                "Palais du Gouverneur": 1
+            })).is(1);
+            test.number(model.getScore(0, 0, 0, {
+                "Université": 1
+            })).is(1);
+            test.number(model.getScore(0, 0, 0, {
+                "Chevalier": 1
+            })).is(0);
+        });
     });
 
     describe('Update score of turn', function () {

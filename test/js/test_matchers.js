@@ -118,4 +118,14 @@ describe('"matchers" tests', function () {
 
         test.number(game.turns.length).is(2);
     });
+
+    it('Play development card', function () {
+        var game = model.newGame();
+        matchers.match("Some Player joue la carte de développement Chevalier.", game);
+        matchers.match("Some Player joue la carte de développement Marché.", game);
+        matchers.match("Some Player joue la carte de développement Chevalier.", game);
+
+        test.number(game.getLastTurnOfPlayer('Some Player').cards.Chevalier).is(2);
+        test.number(game.getLastTurnOfPlayer('Some Player').cards.Marché).is(1);
+    });
 });
