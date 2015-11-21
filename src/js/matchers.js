@@ -68,7 +68,21 @@ var myMatchers = [{
         var name = matched[1];
         var turnOfPlayer = game.getLastTurnOfPlayer(name);
         turnOfPlayer.road = turnOfPlayer.road - 1;
-
+    }
+    }, {
+    pattern: /(.+) retire une colonie.$/,
+    onMatch: function (matched, game) {
+        var name = matched[1];
+        var turnOfPlayer = game.getLastTurnOfPlayer(name);
+        turnOfPlayer.colony = turnOfPlayer.colony - 1;
+    }
+    }, {
+    pattern: /(.+) retire une ville.$/,
+    onMatch: function (matched, game) {
+        var name = matched[1];
+        var turnOfPlayer = game.getLastTurnOfPlayer(name);
+        turnOfPlayer.city = turnOfPlayer.city - 1;
+        turnOfPlayer.colony = turnOfPlayer.colony + 1;
     }
     }, {
     pattern: /(.+) érige une ville.$/,

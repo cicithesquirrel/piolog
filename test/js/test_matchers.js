@@ -85,10 +85,6 @@ describe('"matchers" tests', function () {
         matchers.match("Some Player construit une route.", game);
 
         test.number(game.getLastTurnOfPlayer('Some Player').road).is(2);
-
-        matchers.match("Some Player retire une route.", game);
-
-        test.number(game.getLastTurnOfPlayer('Some Player').road).is(1);
     });
 
     it('Add cities', function () {
@@ -100,6 +96,35 @@ describe('"matchers" tests', function () {
         matchers.match("Some Player érige une ville.", game);
 
         test.number(game.getLastTurnOfPlayer('Some Player').city).is(2);
+    });
+
+    it('Remove colonies', function () {
+        var game = model.newGame();
+        game.getLastTurnOfPlayer("Some Player").colony = 2;
+
+        matchers.match("Some Player retire une colonie.", game);
+
+        test.number(game.getLastTurnOfPlayer('Some Player').colony).is(1);
+    });
+
+    it('Remove cities', function () {
+        var game = model.newGame();
+        game.getLastTurnOfPlayer("Some Player").city = 2;
+        game.getLastTurnOfPlayer("Some Player").colony = 3;
+
+        matchers.match("Some Player retire une ville.", game);
+
+        test.number(game.getLastTurnOfPlayer('Some Player').city).is(1);
+        test.number(game.getLastTurnOfPlayer('Some Player').colony).is(4);
+    });
+
+    it('Remove roads', function () {
+        var game = model.newGame();
+        game.getLastTurnOfPlayer("Some Player").road = 2;
+
+        matchers.match("Some Player retire une route.", game);
+
+        test.number(game.getLastTurnOfPlayer('Some Player').road).is(1);
     });
 
     it('Start turn', function () {
